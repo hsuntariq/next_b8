@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { data } from "../dashboard/data";
+import Link from "next/link";
 const Sidebar = () => {
   return (
     <>
@@ -25,9 +26,13 @@ const Sidebar = () => {
                       <>
                         <div className="flex items-center hover:bg-gray-300 p-2 rounded-full hover:text-black hover:font-bold transition-all cursor-pointer gap-4">
                           {inner?.icon}
-                          <li key={index} className=" w-full">
+                          <Link
+                            href={inner?.link}
+                            key={index}
+                            className=" w-full"
+                          >
                             {inner?.title}
-                          </li>
+                          </Link>
                         </div>
                       </>
                     );

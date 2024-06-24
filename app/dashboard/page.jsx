@@ -5,6 +5,7 @@ import Cards from "../components/Cards";
 import Transactions from "../components/Transactions";
 import Charts from "../components/Charts";
 import Ads from "../components/Ads";
+import { connectDB } from "../backend/config/connect";
 
 const page = () => {
   return (
