@@ -3,9 +3,12 @@ import { FaTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { getUsers } from "@/app/backend/fetching/dataFetch";
 import Search from "@/app/components/Search";
+import { deleteUser } from "@/app/backend/actions/actions";
 
-const page = async () => {
-  const users = await getUsers();
+const page = async ({ searchParams }) => {
+  const { q } = searchParams;
+
+  const users = await getUsers(q);
   return (
     <>
       <div className="w-full md:w-[90%] mx-auto bg-secondary p-5 rounded-md">
@@ -14,6 +17,7 @@ const page = async () => {
         <table className="w-full capitalize text-left text-white my-5">
           <thead>
             <tr>
+              <th>id</th>
               <th>name</th>
               <th>email</th>
               <th>phone</th>
@@ -51,9 +55,12 @@ const page = async () => {
                     </td>
                     <td>${Math.floor(Math.random() * 5000)}</td>
                     <td>
-                      <button className="bg-red-500 self-center px-3 py-3 rounded-md hover:bg-red-700 border-0">
-                        <FaTrashCan />
-                      </button>
+                      <form action={deleteUser}>
+                        <input type="hidden" name="id" value={item?._id} />
+                        <button className="bg-red-500 self-center px-3 py-3 rounded-md hover:bg-red-700 border-0">
+                          <FaTrashCan />
+                        </button>
+                      </form>
                     </td>
                     <td>
                       <button className="bg-blue-500 self-center px-3 py-3 rounded-md hover:bg-blue-700 border-0">
