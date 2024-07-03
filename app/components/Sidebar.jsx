@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { data } from "../dashboard/data";
 import Link from "next/link";
 const Sidebar = () => {
+  const user = JSON.parse(localStorage.getItem("myUser"));
   return (
     <>
       <div className="flex flex-col gap-3 p-5  min-h-screen  bg-secondary xl:w-[20%] lg:w-[25%] md:w-[40%]  w-full  ">
@@ -11,8 +13,8 @@ const Sidebar = () => {
             <FaUser />
           </div>
           <div className="flex flex-col">
-            <h4 className="font-bold text-white">User</h4>
-            <p className="text-gray-400">Admin</p>
+            <h4 className="font-bold text-white">{user?.name}</h4>
+            <p className="text-gray-400">{user?.admin ? "Admin" : "User"}</p>
           </div>
         </div>
         <ul className="unstyled p-4 text-gray-300 font-bold flex flex-col gap-4">
@@ -41,6 +43,14 @@ const Sidebar = () => {
               </>
             );
           })}
+          <button
+            className="bg-red-400 p-3"
+            onClick={() => {
+              localStorage.removeItem("myUser");
+            }}
+          >
+            Logout
+          </button>
         </ul>
       </div>
     </>

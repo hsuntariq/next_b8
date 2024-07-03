@@ -26,3 +26,24 @@ export const deleteUser = async (formData) => {
   const foundUser = await User.findByIdAndDelete(id);
   revalidatePath("/dashboard/users/user-account");
 };
+
+export const signIN = async (email, password) => {
+  connectDB();
+  const findUser = await User.findOne({ email });
+  if (!findUser) {
+    throw new Error("Invalid Email");
+  } else {
+    if (password == findUser.password) {
+      const myUser = {
+        _id: findUser._id,
+        name: findUser.username,
+        email: findUser.email,
+        admin: findUser.admin,
+        active: findUser.active,
+      };
+      return myUser;
+    } else {
+      throw new Error("Password does not match!");
+    }
+  }
+};
